@@ -31,7 +31,7 @@ var respond = function (req, res) {
 	// Because we use [P] in htaccess we have access to this header
 	var host = req.headers['x-forwarded-host'];
 	if(!host) {
-		host = "favestore.com";
+		host = "weheartpics.com";
 	}
 	url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
 	console.log(url);
