@@ -1,10 +1,13 @@
 {
-  "name": "crawler-hi-phantomjs",
-  "description": "SEO for single page apps",
-  "version": "0.0.1",
-  "private": false,
-  "dependencies": {
-    "express": "3.x",
-    "phantomjs": "x",
-  }
+	"author": "Gleb Polushkin",
+	"name": "crawler-hi-phantomjs",
+	"description": "SEO for single page apps",
+	"version": "0.0.1",
+	"dependencies": {
+		"express": "3.x",
+		"phantomjs": "x",
+	},
+	"engines": {
+		"node": ">=0.10.0"
+	}
 }
