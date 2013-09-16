@@ -1,5 +1,5 @@
 {
-	"author": "Gleb Polushkin",
+	"author": "proll",
 	"name": "crawler-hi-phantomjs",
 	"description": "SEO for single page apps",
 	"version": "0.0.1",
@@ -8,6 +8,7 @@
 		"phantomjs": "x",
 	},
 	"engines": {
-		"node": ">=0.10.0"
+		"node": "0.10.x",
+		"npm":  "1.2.x"
 	}
 }
