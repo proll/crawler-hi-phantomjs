@@ -1,14 +1,4 @@
-// web.js
-
-// Express is our web server that can handle request
-var express = require('express');
-var app = express();
-var httpProxy = require('http-proxy');
-var proxy = new httpProxy.RoutingProxy();
-
-
-const DEFAULT_HOST = 'favestore.com';
-
+const DEFAULT_HOST = 'weheartpics.com';
 
 var getContent = function(url, callback) {
 	var content = '';
@@ -32,33 +22,37 @@ var getContent = function(url, callback) {
 	});
 };
 
-var respondPhantom = function (req, res) {
+var http = require('http'),
+		httpProxy = require('http-proxy');
+//
+// Create a proxy server with custom application logic
+//
+httpProxy.createServer(function (req, res, proxy) {
 	var host = req.headers['x-forwarded-host'];
 	if(!host) {
 		host = DEFAULT_HOST;
 	}
-	url = 'http://' + host + req.params[0];
-	console.log('phantomjs: ' + url);
-	getContent(url, function (content) {
-		res.send(content);
-	});
-}
 
-
-var respondProxy = function (req, res) {
-	var host = req.headers['x-forwarded-host'];
-	if(!host) {
-		host = DEFAULT_HOST;
+	// for css and images sources on client side we give you
+	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico))/)) {
+		console.log(req.url)
+		proxy.proxyRequest(req, res, {
+			host: host,
+			port: 80
+		});
+	// for js sources on client side we give you an almost blank script
+	} else if(!!req.url.match(/(.*\.(js|jscript))/)) {
+		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.write('console.log("hello crawler");');
+		res.end();
+	} else {
+		getContent('http://' + host + req.url, function (content) {
+			res.writeHead(200, { 'Content-Type': 'text/html' });
+			res.write(content);
+			res.end();
+		});	
 	}
-	url = 'http://' + host + req.params[0];
-	console.log('http-proxy: ' + url);
-    proxy.proxyRequest(req, res, {
-        host: url,
-        port: 8080
-    });
-}
 
-app.get(/(.*\.(css|js))/, respondProxy);
-app.get(/(.*)/, respondPhantom);
-// app.get(/(.*).css/, respond);
-app.listen(3333);
+}).listen(3333);
+
+
