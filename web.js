@@ -4,8 +4,8 @@ var getContent = function(url, callback) {
 	var content = '';
 	// Here we spawn a phantom.js process, the first element of the 
 	// array is our phantomjs script and the second element is our url 
-	// var phantom = require('child_process').spawn('./node_modules/phantomjs/bin/phantomjs', ['phantom-server.js', url]);
-	var phantom = require('child_process').spawn('phantomjs', ['phantom-server.js', url]);
+	var phantom = require('child_process').spawn('bin/phantomjs/bin/phantomjs', ['phantom-server.js', url]);
+	// var phantom = require('child_process').spawn('phantomjs', ['phantom-server.js', url]);
 	phantom.stdout.setEncoding('utf8');
 	// Our phantom.js script is simply logging the output and
 	// we access it here through stdout
