@@ -4,8 +4,8 @@ var getContent = function(url, callback) {
 	var content = '';
 	// Here we spawn a phantom.js process, the first element of the 
 	// array is our phantomjs script and the second element is our url 
-	var phantom = require('child_process').spawn('bin/phantomjs/bin/phantomjs', ['phantom-server.js', url]);
-	// var phantom = require('child_process').spawn('phantomjs', ['phantom-server.js', url]);
+	// var phantom = require('child_process').spawn('bin/phantomjs/bin/phantomjs', ['phantom-server.js', url]);
+	var phantom = require('child_process').spawn('phantomjs',  ['phantom-server.js', url]);
 	phantom.stdout.setEncoding('utf8');
 	// Our phantom.js script is simply logging the output and
 	// we access it here through stdout
@@ -36,14 +36,13 @@ httpProxy.createServer(function (req, res, proxy) {
 
 	// for css and images sources on client side we give you
 	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico))/)) {
-		console.log(req.url)
 		proxy.proxyRequest(req, res, {
 			host: host,
 			port: 80
 		});
 	// for js sources on client side we give you an almost blank script
 	} else if(!!req.url.match(/(.*\.(js|jscript))/)) {
-		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.writeHead(200, { 'Content-Type': 'application/javascript' });
 		res.write('console.log("hello crawler");');
 		res.end();
 	} else {
