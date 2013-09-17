@@ -3,6 +3,11 @@
 // Express is our web server that can handle request
 var express = require('express');
 var app = express();
+var httpProxy = require('http-proxy');
+var proxy = new httpProxy.RoutingProxy();
+
+
+const DEFAULT_HOST = 'favestore.com';
 
 
 var getContent = function(url, callback) {
@@ -27,18 +32,33 @@ var getContent = function(url, callback) {
 	});
 };
 
-var respond = function (req, res) {
-	// Because we use [P] in htaccess we have access to this header
+var respondPhantom = function (req, res) {
 	var host = req.headers['x-forwarded-host'];
 	if(!host) {
-		host = "weheartpics.com";
+		host = DEFAULT_HOST;
 	}
-	url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
-	console.log(url);
+	url = 'http://' + host + req.params[0];
+	console.log('phantomjs: ' + url);
 	getContent(url, function (content) {
 		res.send(content);
 	});
 }
 
-app.get(/(.*)/, respond);
+
+var respondProxy = function (req, res) {
+	var host = req.headers['x-forwarded-host'];
+	if(!host) {
+		host = DEFAULT_HOST;
+	}
+	url = 'http://' + host + req.params[0];
+	console.log('http-proxy: ' + url);
+    proxy.proxyRequest(req, res, {
+        host: url,
+        port: 8080
+    });
+}
+
+app.get(/(.*\.(css|js))/, respondProxy);
+app.get(/(.*)/, respondPhantom);
+// app.get(/(.*).css/, respond);
 app.listen(3333);
