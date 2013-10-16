@@ -1,9 +1,9 @@
 var page = require('webpage').create();
-page.settings.loadImages = false;
-page.settings.localToRemoteUrlAccessEnabled = true;
+// page.settings.loadImages = false;
+// page.settings.localToRemoteUrlAccessEnabled = true;
 // mask request as Googlebot to make YandexMetrika know that it is just a Bot - not an ordinary user
 page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
-page.viewportSize = { width: 1024, height: 768 };
+// page.viewportSize = { width: 1024, height: 768 };
 var system = require('system');
 
 var lastReceived = new Date().getTime();
