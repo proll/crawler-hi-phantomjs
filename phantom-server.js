@@ -1,5 +1,4 @@
 var page = require('webpage').create();
-var system = require('system');
 
 // page.settings.loadImages = false;
 // page.settings.localToRemoteUrlAccessEnabled = true;
@@ -7,6 +6,7 @@ var system = require('system');
 if(!!page.settings) {
   page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 }
+var system = require('system');
 
 // page.viewportSize = { width: 1440, height: 1200 };
 
