@@ -4,7 +4,6 @@
 	"description": "SEO for single page apps",
 	"version": "0.0.1",
 	"dependencies": {
-		"phantomjs": "1.x",
 		"http-proxy": "0.8.x"
 	},
 	"engines": {
