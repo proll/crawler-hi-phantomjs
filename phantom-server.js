@@ -1,14 +1,11 @@
 var page = require('webpage').create();
-
-// page.settings.loadImages = false;
-// page.settings.localToRemoteUrlAccessEnabled = true;
-// mask request as Googlebot to make YandexMetrika know that it is just a Bot - not an ordinary user
-if(!!page.settings) {
-  page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
-}
 var system = require('system');
 
-// page.viewportSize = { width: 1440, height: 1200 };
+page.settings.loadImages = false;
+page.settings.localToRemoteUrlAccessEnabled = true;
+// mask request as Googlebot to make YandexMetrika know that it is just a Bot - not an ordinary user
+page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+page.viewportSize = { width: 1440, height: 1200 };
 
 var lastReceived = new Date().getTime();
 var requestCount = 0;
@@ -39,6 +36,7 @@ var checkComplete = function () {
   if((new Date().getTime() - lastReceived > 300 && requestCount === responseCount) || new Date().getTime() - startTime > 50000)  {
     clearInterval(checkCompleteInterval);
     console.log(page.content);
+    page.release();
     phantom.exit();
   }
 }
