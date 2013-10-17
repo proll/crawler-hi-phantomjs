@@ -35,7 +35,7 @@ var checkComplete = function () {
 	// don't return until all requests are finished
 	if((new Date().getTime() - lastReceived > 300 && requestCount === responseCount) || new Date().getTime() - startTime > 50000)  {
 		clearInterval(checkCompleteInterval);
-		console.log(page.content.length);
+		console.log(page.content);
 		if(!!page.release) {
 			page.release();
 		} else if(!!page.close) {
