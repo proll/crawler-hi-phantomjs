@@ -14,7 +14,7 @@ var getContent = function(url, callback) {
 	});
 	phantom.on('exit', function(code) {
 		if (code !== 0) {
-			console.log('We have an error');
+			console.log('We have an error ' + code);
 		} else {
 			// once our phantom.js script exits, let's call out call back
 			// which outputs the contents to the page
@@ -24,7 +24,7 @@ var getContent = function(url, callback) {
 };
 
 var http = require('http'),
-		httpProxy = require('http-proxy');
+	httpProxy = require('http-proxy');
 //
 // Create a proxy server with custom application logic
 //
@@ -34,9 +34,11 @@ httpProxy.createServer(function (req, res, proxy) {
 		host = DEFAULT_HOST;
 	}
 
+	console.log('host: ' + host);
+
 	// for css and images sources on client side we give you
-	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico))/)) {
-		console.log(req.url)
+	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico|xml|html))/)) {
+		console.log('resource: ' + req.url)
 		proxy.proxyRequest(req, res, {
 			host: host,
 			port: 80
