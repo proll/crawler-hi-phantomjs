@@ -1,8 +1,8 @@
 var page = require('webpage').create();
 var system = require('system');
 
-page.settings.loadImages = false;
-page.settings.localToRemoteUrlAccessEnabled = true;
+page.settings.loadImages = true;
+// page.settings.localToRemoteUrlAccessEnabled = true;
 // mask request as Googlebot to make YandexMetrika know that it is just a Bot - not an ordinary user
 // page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 // page.viewportSize = { width: 1440, height: 1200 };
