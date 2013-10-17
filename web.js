@@ -35,7 +35,7 @@ httpProxy.createServer(function (req, res, proxy) {
 	}
 
 	// for css and images sources on client side we give you
-	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico|xml|html))/)) {
+	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico|xml|html|txt))/)) {
 		console.log('resource: ' + req.url)
 		proxy.proxyRequest(req, res, {
 			host: host,
