@@ -14,17 +14,17 @@ var requestIds = [];
 var startTime = new Date().getTime();
 
 page.onResourceReceived = function (response) {
-		if(requestIds.indexOf(response.id) !== -1) {
-				lastReceived = new Date().getTime();
-				responseCount++;
-				requestIds[requestIds.indexOf(response.id)] = null;
-		}
+	if(requestIds.indexOf(response.id) !== -1) {
+		lastReceived = new Date().getTime();
+		responseCount++;
+		requestIds[requestIds.indexOf(response.id)] = null;
+	}
 };
 page.onResourceRequested = function (request) {
-		if(requestIds.indexOf(request.id) === -1) {
-				requestIds.push(request.id);
-				requestCount++;
-		}
+	if(requestIds.indexOf(request.id) === -1) {
+		requestIds.push(request.id);
+		requestCount++;
+	}
 };
 
 // Open the page
@@ -45,4 +45,4 @@ var checkComplete = function () {
 	}
 }
 // Let us check to see if the page is finished rendering
-var checkCompleteInterval = setInterval(checkComplete, 1);
+var checkCompleteInterval = setInterval(checkComplete, 100);
