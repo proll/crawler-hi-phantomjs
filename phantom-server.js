@@ -3,8 +3,8 @@ var system = require('system');
 
 page.settings.loadImages = true;
 // page.settings.localToRemoteUrlAccessEnabled = true;
-// mask request as Googlebot to make YandexMetrika know that it is just a Bot - not an ordinary user
-// page.settings.userAgent = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+// mask request as MSNBot to make YandexMetrika know that it is just a Bot - not an ordinary user
+page.settings.userAgent = 'msnbot-media/1.1 (+http://search.msn.com/msnbot.htm)';
 page.viewportSize = { width: 1440, height: 1200 };
 
 var lastReceived = new Date().getTime();

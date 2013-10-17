@@ -53,6 +53,7 @@ httpProxy.createServer(function (req, res, proxy) {
 		res.end();
 	} else {
 		console.log('host: ' + host);
+		console.log('user-agent:' + req.headers['user-agent']);
 		getContent('http://' + host + req.url, function (content) {
 			res.writeHead(200, { 
 				'Content-Type': 'text/html',
