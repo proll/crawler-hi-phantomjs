@@ -34,8 +34,6 @@ httpProxy.createServer(function (req, res, proxy) {
 		host = DEFAULT_HOST;
 	}
 
-	console.log('host: ' + host);
-
 	// for css and images sources on client side we give you
 	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico|xml|html))/)) {
 		console.log('resource: ' + req.url)
@@ -49,6 +47,7 @@ httpProxy.createServer(function (req, res, proxy) {
 		res.write('console.log("hello crawler");');
 		res.end();
 	} else {
+		console.log('host: ' + host);
 		getContent('http://' + host + req.url, function (content) {
 			res.writeHead(200, { 'Content-Type': 'text/html' });
 			res.write(content);
