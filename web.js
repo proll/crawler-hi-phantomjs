@@ -1,4 +1,4 @@
-const DEFAULT_HOST = 'favestore.com';
+const DEFAULT_HOST = 'weheartpics.com';
 
 var getContent = function(url, callback) {
 	var content = '';
@@ -29,6 +29,7 @@ var http = require('http'),
 // Create a proxy server with custom application logic
 //
 httpProxy.createServer(function (req, res, proxy) {
+
 	var host = req.headers['x-forwarded-host'];
 	if(!host) {
 		host = DEFAULT_HOST;
@@ -43,13 +44,21 @@ httpProxy.createServer(function (req, res, proxy) {
 		});
 	// for js sources on client side we give you an almost blank script
 	} else if(!!req.url.match(/(.*\.(js|jscript))/)) {
-		res.writeHead(200, { 'Content-Type': 'application/javascript' });
+		res.writeHead(200, { 
+			'Content-Type': 'application/javascript',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Headers': 'X-Requested-With'
+		 });
 		res.write('console.log("hello crawler");');
 		res.end();
 	} else {
 		console.log('host: ' + host);
 		getContent('http://' + host + req.url, function (content) {
-			res.writeHead(200, { 'Content-Type': 'text/html' });
+			res.writeHead(200, { 
+				'Content-Type': 'text/html',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Headers': 'X-Requested-With'
+			});
 			res.write(content);
 			res.end();
 		});	
