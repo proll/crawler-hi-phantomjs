@@ -27,6 +27,10 @@ page.onResourceRequested = function (request) {
 	}
 };
 
+page.onConsoleMessage = function(msg){
+    console.log(msg);
+};
+
 // Open the page
 page.open(system.args[1], function () {});
 
