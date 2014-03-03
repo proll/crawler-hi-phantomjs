@@ -37,13 +37,14 @@ httpProxy.createServer(function (req, res, proxy) {
 
 	// for css and images sources on client side we give you
 	if(!!req.url.match(/(.*\.(css|png|jpeg|jpg|ico|xml|html|txt))/)) {
-		console.log('resource: ' + req.url)
+		console.log('resource: ' + host + req.url)
 		proxy.proxyRequest(req, res, {
 			host: host,
 			port: 80
 		});
 	// for js sources on client side we give you an almost blank script
 	} else if(!!req.url.match(/(.*\.(js|jscript))/)) {
+		console.log('js resource: ' + host + req.url)
 		res.writeHead(200, { 
 			'Content-Type': 'application/javascript',
 			'Access-Control-Allow-Origin': '*',
@@ -52,7 +53,7 @@ httpProxy.createServer(function (req, res, proxy) {
 		res.write('console.log("hello crawler");');
 		res.end();
 	} else {
-		console.log('host: ' + host);
+		console.log('url: ' + host + req.url);
 		console.log('user-agent:' + req.headers['user-agent']);
 		getContent('http://' + host + req.url, function (content) {
 			res.writeHead(200, { 
